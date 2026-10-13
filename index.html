@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños, Rosaria Ruiz Díaz!</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        creamPearl: '#FFFDF9',
+                        roseDust: '#E4A0A7',
+                        roseDeep: '#9E3A4B',
+                        wineGold: '#742332',
+                        goldMain: '#D4AF37',
+                        goldLight: '#F7E7A9',
+                        lavenderSoft: '#F2EDFA',
+                        warmDark: '#2C1E21'
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        garamond: ['Cormorant Garamond', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                        cursive: ['Alex Brush', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Archivo de Estilos CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="relative min-h-screen selection:bg-roseDust selection:text-wineGold">
+
+    <!-- Contenedor para pétalos flotantes -->
+    <div id="petals-container"></div>
+
+    <!-- Luces de ambiente en segundo plano -->
+    <div class="light-orb w-96 h-96 bg-roseDust/20 top-10 left-[-50px]"></div>
+    <div class="light-orb w-96 h-96 bg-goldLight/30 bottom-20 right-[-50px]"></div>
+
+    <!-- Barra Superior de Navegación y Música -->
+    <div class="fixed top-4 right-4 z-50 flex items-center gap-3">
+        <button id="bg-music-btn" onclick="toggleAudio()" class="glass-card shadow-2xl px-5 py-3 rounded-full text-wineGold font-semibold text-xs sm:text-sm flex items-center gap-3 hover:bg-roseDust/20 transition cursor-pointer border border-goldMain/40 hover-lift">
+            <i id="music-icon" class="fas fa-music text-goldMain text-base"></i>
+            <span id="music-text" class="tracking-wide">Música de Fondo</span>
+        </button>
+
+        <audio id="bg-audio" loop preload="auto">
+            <source src="musica.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- Sección Principal (Hero Section) Épica -->
+    <header class="relative min-h-screen flex items-center justify-center text-center px-4 py-20 overflow-hidden">
+        <div class="max-w-4xl mx-auto z-10 pt-10">
+            
+            <div class="inline-flex items-center justify-center w-20 h-20 mb-8 rounded-full bg-gradient-to-br from-roseDust/30 to-lavenderSoft text-wineGold border-2 border-goldMain/60 shadow-xl gold-glow">
+                <i class="fas fa-crown text-3xl text-goldMain"></i>
+            </div>
+
+            <p class="font-cursive text-3xl sm:text-4xl md:text-5xl text-roseDeep mb-3">
+                Celebrando la vida de una mujer extraordinaria...
+            </p>
+
+            <h1 class="font-serif text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tight text-warmDark leading-none mb-6">
+                ¡Feliz Cumpleaños,<br>
+                <span class="epic-title-gradient">Sra. Rosaria Ruiz Díaz</span>!
+            </h1>
+
+            <p class="font-cursive text-3xl sm:text-4xl text-goldMain font-bold mb-8">
+                
+            </p>
+
+            <p class="font-garamond text-xl sm:text-2xl md:text-3xl text-warmDark/90 max-w-3xl mx-auto mb-12 leading-relaxed italic font-medium">
+                Hoy el mundo celebra a la mujer que es el alma, pilar e inspiración indiscutible de su hermosa familia. Una madre ejemplar cuyo legado de amor se refleja en cada uno de sus pasos.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-5 max-w-lg mx-auto">
+                <a href="#carta-especial" class="w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-wineGold via-roseDeep to-wineGold text-white font-sans font-semibold rounded-full shadow-2xl hover:shadow-goldMain/30 hover:opacity-95 transition hover-lift flex items-center justify-center gap-3 border border-goldMain/40 text-base">
+                    <i class="fas fa-envelope-open-text text-goldLight text-lg"></i>
+                    <span>Abrir Mensaje de Honor</span>
+                </a>
+
+                <button onclick="triggerCelebration()" class="w-full sm:w-auto px-10 py-5 glass-card text-wineGold font-sans font-bold rounded-full hover:bg-roseDust/20 transition hover-lift flex items-center justify-center gap-3 border border-goldMain text-base">
+                    <i class="fas fa-sparkles text-goldMain text-lg"></i>
+                    <span>¡Lluvia de Celebración!</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección: Carta Especial & Presentación Integrada -->
+    <section id="carta-especial" class="py-24 px-4 bg-gradient-to-b from-creamPearl via-roseDust/15 to-creamPearl relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+            
+            <span class="text-xs font-bold tracking-widest uppercase text-goldMain bg-wineGold/10 px-5 py-2 rounded-full border border-goldMain/30 mb-4 inline-block">
+                Homenaje Escrito con el Corazón
+            </span>
+
+            <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-wineGold mb-4">
+                Una Carta para una Madre Inigualable
+            </h2>
+            <p class="font-garamond text-lg sm:text-xl text-gray-600 mb-14 italic">
+                Presione sobre el sobre dorado para desplegar las palabras dedicadas a usted
+            </p>
+
+            <div class="relative max-w-2xl mx-auto">
+                <div id="envelope-card" onclick="toggleEnvelope()" class="glass-card p-8 sm:p-14 rounded-3xl shadow-2xl border-2 border-goldMain/40 cursor-pointer hover-lift relative overflow-hidden group">
+                    
+                    <div class="absolute -right-10 -bottom-10 text-9xl text-roseDust/20 pointer-events-none">
+                        <i class="fas fa-heart"></i>
+                    </div>
+
+                    <!-- Estado Cerrado -->
+                    <div id="envelope-closed-state" class="py-12 flex flex-col items-center justify-center">
+                        <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-wineGold to-roseDeep flex items-center justify-center text-goldLight mb-6 group-hover:scale-110 transition duration-500 shadow-xl border-2 border-goldMain">
+                            <i class="fas fa-envelope-open text-4xl"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-wineGold">Para: Sra. Rosaria Ruiz Díaz</h3>
+                        <p class="font-cursive text-2xl text-goldMain mt-1">Con todo mi respeto y admiración</p>
+                        <span class="inline-block mt-6 text-xs uppercase tracking-widest text-wineGold font-bold bg-goldLight/40 px-4 py-2 rounded-full">
+                            Tocar para desplegar
+                        </span>
+                    </div>
+
+                    <!-- Estado Abierto -->
+                    <div id="envelope-open-state" class="hidden text-left space-y-7">
+                        
+                        <div class="border-b border-goldMain/30 pb-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                            <div>
+                                <p class="text-xs font-semibold text-goldMain uppercase tracking-widest">Remitente:</p>
+                                <p class="font-serif text-xl sm:text-2xl font-bold text-wineGold">Josh Maykol Pérez Merino</p>
+                            </div>
+                            <span class="text-xs font-bold text-wineGold bg-roseDust/30 px-3 py-1.5 rounded-full border border-goldMain/30">
+                                En este día tan especial
+                            </span>
+                        </div>
+
+                        <p class="font-serif text-2xl sm:text-3xl font-bold text-wineGold italic">
+                            Querida y apreciada Suegrita Rosaria,
+                        </p>
+
+                        <p class="font-garamond text-xl sm:text-2xl text-warmDark leading-relaxed">
+                            Hoy en el día de su cumpleaños, no podía dejar pasar la oportunidad de expresarle mi más sincero respeto, admiración y cariño. Quisiera decirle de corazón que usted no solo es la matriz amorosa de este hogar, sino una <strong class="text-wineGold font-bold">verdadera inspiración de fortaleza, dulzura y sabiduría para sus hijas</strong>. Ver en ellas esa educación impecable, esos valores tan hermosos y esa nobleza de alma es el reflejo más fiel de la gran madre y mujer ejemplar que es usted.
+                        </p>
+
+                        <p class="font-garamond text-xl sm:text-2xl text-warmDark leading-relaxed">
+                            Aunque el tiempo y la vida todavía no nos han brindado el regalo de coincidir frente a frente para darle un abrazo en persona, quiero que sepa un poquito de mí y de lo feliz que me hace formar parte de la vida de su familia. Me llamo <strong class="text-wineGold">Josh Maykol Pérez Merino</strong>, y me considero un hombre muy enfocado, atento, profundamente familiar y trabajador. Desde el primer día, he sentido una inmensa gratitud por el hogar y los principios que usted sembró con tanto esfuerzo y ternura.
+                        </p>
+
+                        <p class="font-garamond text-xl sm:text-2xl text-warmDark leading-relaxed">
+                            En este nuevo año de vida que Dios y el universo le regalan, deseo de todo corazón que la salud, la tranquilidad, las risas y la prosperidad la acompañen cada segundo. Deseo con toda el alma que pase un día absolutamente inolvidable, rodeada del calor, los abrazos y el amor incondicional de toda su amada familia.
+                        </p>
+
+                        <div class="pt-6 border-t border-goldMain/30 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-wider text-gray-500">Con un inmenso cariño y respeto constante,</p>
+                                <p class="font-cursive text-4xl text-roseDeep mt-1">Josh Maykol Pérez Merino</p>
+                            </div>
+                            <div class="text-right">
+                                <i class="fas fa-heart text-roseDeep text-3xl"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: El Pilar e Inspiración de la Familia -->
+    <section class="py-24 px-4 max-w-6xl mx-auto z-10 relative">
+        <div class="text-center mb-16">
+            <span class="text-xs font-bold uppercase tracking-widest text-goldMain bg-goldLight/30 px-5 py-2 rounded-full border border-goldMain/40">
+                Una Madre Excepcional
+            </span>
+            <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-wineGold mt-4 mb-4">
+                Inspiración Viviente
+            </h2>
+            <p class="font-garamond text-xl sm:text-2xl text-gray-600 max-w-2xl mx-auto italic">
+                Tres virtudes que definen el legado de amor de la Sra. Rosaria Ruiz Díaz:
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-card p-10 rounded-3xl hover-lift border border-goldMain/30 flex flex-col justify-between relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-roseDust/20 rounded-full blur-2xl"></div>
+                <div>
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-wineGold to-roseDeep flex items-center justify-center text-goldLight mb-8 shadow-lg">
+                        <i class="fas fa-female text-3xl text-goldLight"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-wineGold mb-4">Ejemplo & Guía</h3>
+                    <p class="font-garamond text-xl text-warmDark/90 leading-relaxed">
+                        Su fuerza y valores han sido el faro que ilumina el camino de sus hijas. En cada una de sus acciones se nota el amor, la dignidad y la sabiduría de su crianza.
+                    </p>
+                </div>
+                <div class="mt-8 pt-4 border-t border-goldMain/20 flex items-center gap-3 text-xs font-bold text-roseDeep">
+                    <i class="fas fa-star text-goldMain"></i>
+                    <span>Inspiración constante</span>
+                </div>
+            </div>
+
+            <div class="glass-card p-10 rounded-3xl hover-lift border border-goldMain/30 flex flex-col justify-between relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-goldLight/30 rounded-full blur-2xl"></div>
+                <div>
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-wineGold to-roseDeep flex items-center justify-center text-goldLight mb-8 shadow-lg">
+                        <i class="fas fa-home text-3xl text-goldLight"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-wineGold mb-4">Corazón del Hogar</h3>
+                    <p class="font-garamond text-xl text-warmDark/90 leading-relaxed">
+                        Es el centro de unión que mantiene a la familia fuerte y llena de fe. Su calidez hace que cada momento compartido sea un refugio lleno de paz.
+                    </p>
+                </div>
+                <div class="mt-8 pt-4 border-t border-goldMain/20 flex items-center gap-3 text-xs font-bold text-roseDeep">
+                    <i class="fas fa-shield-heart text-goldMain"></i>
+                    <span>Amor incondicional</span>
+                </div>
+            </div>
+
+            <div class="glass-card p-10 rounded-3xl hover-lift border border-goldMain/30 flex flex-col justify-between relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-lavenderSoft rounded-full blur-2xl"></div>
+                <div>
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-wineGold to-roseDeep flex items-center justify-center text-goldLight mb-8 shadow-lg">
+                        <i class="fas fa-glass-cheers text-3xl text-goldLight"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-wineGold mb-4">La Ilusión de Brindar</h3>
+                    <p class="font-garamond text-xl text-warmDark/90 leading-relaxed">
+                        De parte de Josh Maykol, existe un enorme entusiasmo por que llegue el día de conocernos en persona, compartir una buena mesa y celebrar la vida juntos.
+                    </p>
+                </div>
+                <div class="mt-8 pt-4 border-t border-goldMain/20 flex items-center gap-3 text-xs font-bold text-roseDeep">
+                    <i class="fas fa-handshake text-goldMain"></i>
+                    <span>Un futuro abrazo en persona</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Galería de Bendiciones y Deseos Interactivas -->
+    <section class="py-24 px-4 bg-gradient-to-b from-roseDust/10 via-lavenderSoft/30 to-creamPearl border-y border-goldMain/20 z-10 relative">
+        <div class="max-w-5xl mx-auto text-center">
+            
+            <h2 class="font-serif text-4xl sm:text-5xl font-bold text-wineGold mb-3">
+                Bendiciones para su Nuevo Año de Vida
+            </h2>
+            <p class="font-garamond text-xl text-gray-600 mb-12 italic">
+                Toque cada insignia para descubrir un deseo especial dedicado a la Sra. Rosaria:
+            </p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5">
+                <div onclick="revealWish(this, 'Salud inquebrantable, vitalidad y energía para disfrutar cada instante')" class="glass-card p-6 rounded-2xl cursor-pointer hover-lift border border-goldMain/40 text-center transition group">
+                    <div class="w-14 h-14 mx-auto rounded-full bg-wineGold/10 flex items-center justify-center text-wineGold mb-4 group-hover:scale-110 transition">
+                        <i class="fas fa-heart-pulse text-2xl text-goldMain"></i>
+                    </div>
+                    <p class="font-serif font-bold text-wineGold text-lg mb-1">Salud Plena</p>
+                    <span class="text-xs text-gray-500 group-hover:text-roseDeep">Tocar mensaje</span>
+                </div>
+
+                <div onclick="revealWish(this, 'Que la alegría y las risas jamás falten en su mesa y en su corazón')" class="glass-card p-6 rounded-2xl cursor-pointer hover-lift border border-goldMain/40 text-center transition group">
+                    <div class="w-14 h-14 mx-auto rounded-full bg-wineGold/10 flex items-center justify-center text-wineGold mb-4 group-hover:scale-110 transition">
+                        <i class="fas fa-face-smile text-2xl text-goldMain"></i>
+                    </div>
+                    <p class="font-serif font-bold text-wineGold text-lg mb-1">Alegría</p>
+                    <span class="text-xs text-gray-500 group-hover:text-roseDeep">Tocar mensaje</span>
+                </div>
+
+                <div onclick="revealWish(this, 'Paz interior constante y la satisfacción de ver cosechar frutos a sus hijas')" class="glass-card p-6 rounded-2xl cursor-pointer hover-lift border border-goldMain/40 text-center transition group">
+                    <div class="w-14 h-14 mx-auto rounded-full bg-wineGold/10 flex items-center justify-center text-wineGold mb-4 group-hover:scale-110 transition">
+                        <i class="fas fa-dove text-2xl text-goldMain"></i>
+                    </div>
+                    <p class="font-serif font-bold text-wineGold text-lg mb-1">Paz & Serenidad</p>
+                    <span class="text-xs text-gray-500 group-hover:text-roseDeep">Tocar mensaje</span>
+                </div>
+
+                <div onclick="revealWish(this, 'Amor incondicional y abrazos infinitos de parte de toda su hermosa familia')" class="glass-card p-6 rounded-2xl cursor-pointer hover-lift border border-goldMain/40 text-center transition group">
+                    <div class="w-14 h-14 mx-auto rounded-full bg-wineGold/10 flex items-center justify-center text-wineGold mb-4 group-hover:scale-110 transition">
+                        <i class="fas fa-users text-2xl text-goldMain"></i>
+                    </div>
+                    <p class="font-serif font-bold text-wineGold text-lg mb-1">Unión Familiar</p>
+                    <span class="text-xs text-gray-500 group-hover:text-roseDeep">Tocar mensaje</span>
+                </div>
+
+                <div onclick="revealWish(this, 'Que muy pronto podamos celebrar juntos en persona con un fuerte abrazo')" class="glass-card p-6 rounded-2xl cursor-pointer hover-lift border border-goldMain/40 text-center transition group col-span-2 sm:col-span-1">
+                    <div class="w-14 h-14 mx-auto rounded-full bg-wineGold/10 flex items-center justify-center text-wineGold mb-4 group-hover:scale-110 transition">
+                        <i class="fas fa-wine-glass text-2xl text-goldMain"></i>
+                    </div>
+                    <p class="font-serif font-bold text-wineGold text-lg mb-1">Encuentro</p>
+                    <span class="text-xs text-gray-500 group-hover:text-roseDeep">Tocar mensaje</span>
+                </div>
+            </div>
+
+            <div id="wish-display" class="mt-10 min-h-[70px] p-6 rounded-2xl glass-card border-2 border-goldMain/50 hidden max-w-2xl mx-auto text-wineGold font-garamond text-2xl sm:text-3xl font-semibold shadow-xl">
+            </div>
+        </div>
+    </section>
+
+    <!-- Pie de Página Elegante -->
+    <footer class="py-14 px-4 text-center border-t border-goldMain/20 bg-creamPearl relative z-10">
+        <div class="max-w-2xl mx-auto space-y-3">
+            <p class="font-serif text-2xl font-bold text-wineGold">
+                ¡Que pase un día hermoso e inolvidable, Sra. Rosaria Ruiz Díaz!
+            </p>
+            <p class="font-cursive text-3xl text-roseDeep">
+                Con mucho cariño y admiración, su futuro nuero Josh Maykol Pérez Merino.
+            </p>
+            
+        </div>
+    </footer>
+
+    <!-- Archivo de Script JS -->
+    <script src="script.js"></script>
+</body>
+</html>

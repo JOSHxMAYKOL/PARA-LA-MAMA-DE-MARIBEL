@@ -1,0 +1,90 @@
+body {
+    background-color: #FFFDF9;
+    color: #2C1E21;
+    overflow-x: hidden;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Lluvia de pétalos de rosa mágicos */
+.petal {
+    position: fixed;
+    background: linear-gradient(135deg, #E4A0A7 0%, #C4717A 100%);
+    border-radius: 18px 0px 18px 0px;
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(158, 58, 75, 0.15);
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg) scale(0.7);
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 0.9;
+    }
+    100% {
+        transform: translateY(105vh) rotate(420deg) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Texto con gradiente dorado brillante */
+.gold-gradient-text {
+    background: linear-gradient(135deg, #D4AF37 0%, #F7E7A9 40%, #B8860B 70%, #E6CA65 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Gradiente para títulos épicos */
+.epic-title-gradient {
+    background: linear-gradient(135deg, #742332 0%, #9E3A4B 50%, #D4AF37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Tarjeta de Cristal Glassmorphism */
+.glass-card {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.glass-card-wine {
+    background: rgba(44, 30, 33, 0.85);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+}
+
+/* Animación suave al flotar */
+.hover-lift {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(116, 35, 50, 0.15);
+}
+
+/* Pulso dorado tenue */
+@keyframes goldGlow {
+    0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.6); }
+}
+.gold-glow {
+    animation: goldGlow 3s infinite ease-in-out;
+}
+
+/* Brillo sutil de luz */
+@keyframes floatLight {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -20px); }
+}
+.light-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: floatLight 10s infinite ease-in-out;
+}
